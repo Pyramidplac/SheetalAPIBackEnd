@@ -1,5 +1,6 @@
 const db = require("../models");
 const Question = db.question;
+const QuestionType = db.questionType;
 
 exports.create = (req, res) => {
     if (!req.body.question) {
@@ -10,6 +11,7 @@ exports.create = (req, res) => {
         qtype: req.body.qtype,
         question: req.body.question,
         answer: req.body.answer,
+        QuestionTypeID: QuestionType.id
     });
 
     question

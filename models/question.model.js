@@ -7,6 +7,11 @@ module.exports = mongoose => {
                 qtype: String,
                 question: String,
                 answer: String,
+                QuestionTypeID: [{
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "QuestionTypeID"
+                }]
+
             }
         )
     );

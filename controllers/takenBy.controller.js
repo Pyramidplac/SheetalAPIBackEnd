@@ -1,41 +1,37 @@
 const db = require("../models");
-const Fees = db.fees;
-const course = db.course
+const TakenBy = db.takenBy;
 
 exports.create = (req, res) => {
-    if (!req.body.feesmaster) {
+    if (!req.body.takenby) {
         res.status(400).send({ message: "Content can not be empty!" });
         return;
     }
-    const fees = new Fees({
-        feesmaster: req.body.feesmaster,
-        amountmaster: req.body.amountmaster,
-        daymaster: req.body.daymaster,
-        courseId: course.id
+    const takenBy = new TakenBy({
+        takenby: req.body.takenby
     });
 
-    fees
-        .save(fees)
+    takenBy
+        .save(takenBy)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the fees."
+                    err.message || "Some error occurred while creating the takenBy."
             });
         });
 };
 
 exports.findAll = (req, res) => {
-    Fees.find()
+    TakenBy.find()
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving fees."
+                    err.message || "Some error occurred while retrieving TakenBy."
             });
         });
 };
@@ -43,36 +39,36 @@ exports.findAll = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Fees.findByIdAndRemove(id)
+    TakenBy.findByIdAndRemove(id)
         .then(data => {
             if (!data) {
                 res.status(404).send({
-                    message: `Cannot delete data with id=${id}. Maybe data was not found!`
+                    message: `Cannot delete TakenBy with id=${id}. Maybe TakenBy was not found!`
                 });
             } else {
                 res.send({
-                    message: "data was deleted successfully!"
+                    message: "TakenBy was deleted successfully!"
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete data with id=" + id
+                message: "Could not delete TakenBy with id=" + id
             });
         });
 };
 
 exports.deleteAll = (req, res) => {
-    Fees.deleteMany({})
+    TakenBy.deleteMany({})
         .then(data => {
             res.send({
-                message: `${data.deletedCount} course data were deleted successfully!`
+                message: `${data.deletedCount} course TakenBy were deleted successfully!`
             });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all data."
+                    err.message || "Some error occurred while removing all TakenBy."
             });
         });
 };
@@ -80,23 +76,23 @@ exports.deleteAll = (req, res) => {
 exports.update = (req, res) => {
     if (!req.body) {
         return res.status(400).send({
-            message: "Data to update can not be empty!"
+            message: "TakenBy to update can not be empty!"
         });
     }
 
     const id = req.params.id;
 
-    Fees.findByIdAndUpdate(id, req.body, { useFindAndModify: true })
+    TakenBy.findByIdAndUpdate(id, req.body, { useFindAndModify: true })
         .then(data => {
             if (!data) {
                 res.status(404).send({
-                    message: `Cannot update fees with id=${id}. Maybe Fees was not found!`
+                    message: `Cannot update TakenBy with id=${id}. Maybe TakenBy was not found!`
                 });
-            } else res.send({ message: "Fees was updated successfully." });
+            } else res.send({ message: "TakenBy was updated successfully." });
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating fees with id=" + id
+                message: "Error updating TakenBy with id=" + id
             });
         });
 };

@@ -1,41 +1,37 @@
 const db = require("../models");
-const Fees = db.fees;
-const course = db.course
+const QuestionType = db.questionType;
 
 exports.create = (req, res) => {
-    if (!req.body.feesmaster) {
+    if (!req.body.questiontype) {
         res.status(400).send({ message: "Content can not be empty!" });
         return;
     }
-    const fees = new Fees({
-        feesmaster: req.body.feesmaster,
-        amountmaster: req.body.amountmaster,
-        daymaster: req.body.daymaster,
-        courseId: course.id
+    const question = new QuestionType({
+        questiontype: req.body.questiontype
     });
 
-    fees
-        .save(fees)
+    question
+        .save(question)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the fees."
+                    err.message || "Some error occurred while creating the question."
             });
         });
 };
 
 exports.findAll = (req, res) => {
-    Fees.find()
+    QuestionType.find()
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving fees."
+                    err.message || "Some error occurred while retrieving QuestionType."
             });
         });
 };
@@ -43,36 +39,36 @@ exports.findAll = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Fees.findByIdAndRemove(id)
+    QuestionType.findByIdAndRemove(id)
         .then(data => {
             if (!data) {
                 res.status(404).send({
-                    message: `Cannot delete data with id=${id}. Maybe data was not found!`
+                    message: `Cannot delete QuestionType with id=${id}. Maybe QuestionType was not found!`
                 });
             } else {
                 res.send({
-                    message: "data was deleted successfully!"
+                    message: "QuestionType was deleted successfully!"
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete data with id=" + id
+                message: "Could not delete QuestionType with id=" + id
             });
         });
 };
 
 exports.deleteAll = (req, res) => {
-    Fees.deleteMany({})
+    QuestionType.deleteMany({})
         .then(data => {
             res.send({
-                message: `${data.deletedCount} course data were deleted successfully!`
+                message: `${data.deletedCount} course QuestionType were deleted successfully!`
             });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all data."
+                    err.message || "Some error occurred while removing all QuestionType."
             });
         });
 };
@@ -80,23 +76,23 @@ exports.deleteAll = (req, res) => {
 exports.update = (req, res) => {
     if (!req.body) {
         return res.status(400).send({
-            message: "Data to update can not be empty!"
+            message: "QuestionType to update can not be empty!"
         });
     }
 
     const id = req.params.id;
 
-    Fees.findByIdAndUpdate(id, req.body, { useFindAndModify: true })
+    QuestionType.findByIdAndUpdate(id, req.body, { useFindAndModify: true })
         .then(data => {
             if (!data) {
                 res.status(404).send({
-                    message: `Cannot update fees with id=${id}. Maybe Fees was not found!`
+                    message: `Cannot update QuestionType with id=${id}. Maybe QuestionType was not found!`
                 });
-            } else res.send({ message: "Fees was updated successfully." });
+            } else res.send({ message: "QuestionType was updated successfully." });
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating fees with id=" + id
+                message: "Error updating QuestionType with id=" + id
             });
         });
 };

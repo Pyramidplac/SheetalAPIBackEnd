@@ -45,6 +45,8 @@ require("./routes/fees.routes")(app);
 require("./routes/onlineinquiry.routes")(app);
 require("./routes/academicyear.routes")(app);
 require("./routes/question.routes")(app);
+require("./routes/QuestionType.routes")(app);
+require("./routes/takenBy.routes")(app);
 
 // =========================================================================
 
