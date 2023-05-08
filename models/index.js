@@ -13,6 +13,7 @@ db.academicyear = require("./academicyear.model")(mongoose);
 db.question = require("./question.model")(mongoose);
 db.questionType = require("./QuestionType.model")(mongoose);
 db.takenBy = require("./takenBy.model")(mongoose);
+db.facultyregistration = require("./facultyregistration.model")(mongoose);
 
 db.student = require("./admission.student.model");
 db.role = require("./role.model");

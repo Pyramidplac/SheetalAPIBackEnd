@@ -47,6 +47,7 @@ require("./routes/academicyear.routes")(app);
 require("./routes/question.routes")(app);
 require("./routes/QuestionType.routes")(app);
 require("./routes/takenBy.routes")(app);
+require("./routes/facultyregistration.routes")(app);
 
 // =========================================================================
 
